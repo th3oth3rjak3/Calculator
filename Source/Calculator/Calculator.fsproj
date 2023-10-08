@@ -8,6 +8,9 @@
   <ItemGroup>
     <Compile Include="Calculator.fs" />
     <Compile Include="Program.fs" />
+    <Content Include="Assets\Icons\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -25,5 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Calculator.Lib\Calculator.Lib.fsproj" />
   </ItemGroup>
+
 
 </Project>

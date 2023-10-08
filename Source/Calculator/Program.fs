@@ -3,25 +3,26 @@
 open Elmish
 open Avalonia
 open Avalonia.Controls.ApplicationLifetimes
-open Avalonia.Diagnostics
-open Avalonia.Input
 open Avalonia.FuncUI
 open Avalonia.FuncUI.Elmish
 open Avalonia.Themes.Fluent
 open Avalonia.FuncUI.Hosts
+open Avalonia.Controls
+
 
 type MainWindow() as this =
     inherit HostWindow()
     do
-        base.Title <- "Calculator"
-        base.Width <- 400.0
+        base.Icon <- WindowIcon("Assets\Icons\Calculator.ico")
         base.Height <- 565.0
-        
-        
-        //this.VisualRoot.VisualRoot.Renderer.DrawFps <- true
-        //this.VisualRoot.VisualRoot.Renderer.DrawDirtyRects <- true
+        base.MinHeight <- 565
+        base.MaxHeight <- 565
+        base.Width <- 400.0
+        base.MinWidth <- 400.0
+        base.MaxWidth <- 400.0
+        base.Title <- "Calculator"     
 
-        Elmish.Program.mkSimple (fun () -> Counter.init) Counter.update Counter.view
+        Elmish.Program.mkSimple (fun () -> Calculator.init) Calculator.update Calculator.view
         |> Program.withHost this
         |> Program.run
 

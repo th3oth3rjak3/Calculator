@@ -1,7 +1,7 @@
 ﻿
 namespace Calculator
 
-module Counter =
+module Calculator =
     open Avalonia.Controls
     open Avalonia.FuncUI.DSL
     open Avalonia.Layout
@@ -12,8 +12,8 @@ module Counter =
     
     open Calculator.Lib
 
-    type State = { userInput: string }
-    let init = { userInput = "" }
+    type State = { UserInput: string }
+    let init = { UserInput = "" }
 
     type Msg = 
     | AddUserInput of string
@@ -21,7 +21,7 @@ module Counter =
     | Calculate
 
     let addInputToState state input =
-        { state with userInput = (state.userInput + input) }
+        { state with UserInput = (state.UserInput + input) }
 
     let updateUserInput state input =
         match input with
@@ -30,8 +30,8 @@ module Counter =
         | "(" | ")" | "." -> addInputToState state input
         | "+" | "-" | "*" | "/" -> addInputToState state input
         | "C" -> init
-        | "B" -> { state with userInput = state.userInput[..state.userInput.Length - 2] }
-        | "=" -> { state with userInput = Application.tryCalculate state.userInput }
+        | "B" -> { state with UserInput = state.UserInput[..state.UserInput.Length - 2] }
+        | "=" -> { state with UserInput = Application.tryCalculate state.UserInput }
         | _ -> state
 
 
@@ -41,7 +41,7 @@ module Counter =
         match msg with
         | AddUserInput input -> updateUserInput state input
         | Reset -> init
-        | Calculate -> { state with userInput = Application.tryCalculate state.userInput }
+        | Calculate -> { state with UserInput = Application.tryCalculate state.UserInput }
     
     let view (state: State) (dispatch: Msg -> unit) =
         StackPanel.create [
@@ -68,19 +68,8 @@ module Counter =
                             TextBlock.foreground "white"
                             TextBlock.verticalAlignment VerticalAlignment.Center
                             TextBlock.horizontalAlignment HorizontalAlignment.Center
-                            TextBlock.text (" " + state.userInput)
+                            TextBlock.text (" " + state.UserInput)
                         ]
-                        //TextBox.create [
-                        //    TextBox.fontSize 32.0
-                        //    TextBox.placement PlacementMode.Bottom
-                        //    TextBox.width 290
-                        //    TextBox.textAlignment TextAlignment.Left
-                        //    TextBox.background "#014a4a"
-                        //    TextBox.foreground "white"
-                        //    TextBox.verticalAlignment VerticalAlignment.Center
-                        //    TextBox.horizontalAlignment HorizontalAlignment.Center
-                        //    TextBox.text (" " + state.userInput)
-                        //]
                     )
                 ]
                 UniformGrid.create [
@@ -93,10 +82,10 @@ module Counter =
                     UniformGrid.verticalAlignment VerticalAlignment.Bottom
                     UniformGrid.children (
                         ["("; ")"; "C"; "B";
-                         "7"; "8"; "9"; "/";
-                         "4"; "5"; "6"; "*";
-                         "1"; "2"; "3"; "-";
-                         "."; "0"; "="; "+"]
+                            "7"; "8"; "9"; "/";
+                            "4"; "5"; "6"; "*";
+                            "1"; "2"; "3"; "-";
+                            "."; "0"; "="; "+"]
                         |> List.map (fun buttonText -> 
                             Button.create [
                                 Button.onClick (fun _ -> dispatch (AddUserInput buttonText))
@@ -114,3 +103,4 @@ module Counter =
                 ]
             ]
         ]
+        
